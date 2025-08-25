@@ -13,7 +13,7 @@ function Header() {
   return (
     <div css={s.header}>
       {/* 로고 */}
-      <div onClick={onClickNavHandler}>BOARD</div>
+      <div onClick={onClickNavHandler("/")}>BOARD</div>
       <div>
         <ul>
           {/* 메뉴 */}

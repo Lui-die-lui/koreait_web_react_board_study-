@@ -1,94 +1,73 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  /* 세로 정렬 되어있음 */
-  flex-direction: column;
-  align-items: center;
-  /* 가장 위쪽으로 붙음 */
-  justify-content: flex-start;
-  padding: 120px 0;
-
-  // padding 때문에 border 끊김 방지
-  box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 40px;
 `;
 
 export const box = css`
-  width: 400px;
-  height: auto;
-  border-radius: 15px;
-  /* border: 1px solid #dbdbdb; */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 26px;
-  padding: 30px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+	width: 360px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 `;
 
 export const inputBox = css`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  & > input {
-    width: 100%;
-  }
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 `;
 
 export const signinBtnBox = css`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+	display: flex;
+	gap: 10px;
 
-  & > button {
-    width: 100%;
-    padding: 11px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    color: white;
-    font-weight: 500;
-    transition: all 0.2s ease;
+	& > button {
+		flex: 1;
+		padding: 12px 0;
+		border: none;
+		border-radius: 8px;
+		font-size: 15px;
+		font-weight: 600;
+		cursor: pointer;
+		color: white;
+		transition: all 0.2s ease;
+	}
 
-    &:hover {
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-    }
-  }
+	& > button:hover {
+		opacity: 0.9;
+	}
 `;
 
 export const oauthBtnBox = css`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 
-  & > button {
-    width: 100%;
-    padding: 11px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    gap: 10px;
-    cursor: pointer;
-    color: white;
-    transition: all 0.2s ease;
+	& > button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px; /* 아이콘-텍스트 간격 */
+		width: 100%;
+		padding: 12px;
+		border: 1px solid #e0e0e0;
+		border-radius: 8px;
+		background-color: #fff;
+		font-size: 14px;
+		font-weight: 500;
+		color: #333;
+		cursor: pointer;
 
-    &:hover {
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-    }
-  }
+		/* ✅ background → background-color 로 변경 */
+		transition: background-color 0.2s ease, color 0.2s ease;
+
+		&:hover {
+			background-color: #f8f9fa;
+			color: #000;
+		}
+	}
 `;
