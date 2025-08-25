@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import AuthInput from "../../components/AuthInput/AuthInput";
 import * as s from "./Styles";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
+import { signinRequest } from "../../apis/auth/authApis";
 
 function Signin() {
 	const [username, setUsername] = useState("");
@@ -27,7 +31,7 @@ function Signin() {
 				if (response.data.status === "success") {
 					alert(response.data.message);
 					localStorage.setItem("accessToken", response.data.data);
-					navigate("/");
+					window.location.href = "/"; // 페이지를 새로고침하면서 이동 됨
 				} else if (response.data.status === "failed") {
 					alert(response.data.message);
 					return;
@@ -69,18 +73,19 @@ function Signin() {
 					</button>
 				</div>
 				<div css={s.oauthBtnBox}>
-					<button className="google">
+					{/* 어차피 링크 이동 할거라서 button -> a 태그로 변경 */}
+					<a href="http://localhost:8080/oauth2/authorization/google">
 						<FcGoogle size={20} />
 						<span>구글로 로그인</span>
-					</button>
-					<button className="naver">
+					</a>
+					<a>
 						<SiNaver size={18} color="#03C75A" />
 						<span>네이버로 로그인</span>
-					</button>
-					<button className="kakao">
+					</a>
+					<a>
 						<RiKakaoTalkFill size={20} color="#FEE500" />
 						<span>카카오로 로그인</span>
-					</button>
+					</a>
 				</div>
 			</div>
 		</div>
