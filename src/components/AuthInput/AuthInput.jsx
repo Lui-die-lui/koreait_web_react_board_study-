@@ -2,7 +2,7 @@
 
 import * as s from "./Styles";
 
-function AuthInput({ type, placeholder, state, setState }) {
+function AuthInput({ type, placeholder, state, setState, disabled }) {
   const onChangeHandler = (e) => {
     setState(e.target.value);
   };
@@ -15,6 +15,7 @@ function AuthInput({ type, placeholder, state, setState }) {
         value={state}
         placeholder={placeholder}
         onChange={onChangeHandler}
+        disabled={disabled}
       />
     </>
   );

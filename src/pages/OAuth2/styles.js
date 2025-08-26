@@ -9,8 +9,8 @@ export const container = css`
 `;
 
 export const card = css`
-  width: 350px;
-  height: 250px;
+  min-width: 350px;
+  min-height: 250px;
   border: 1px solid #dbdbdb;
   border-radius: 15px;
   box-sizing: border-box;
@@ -41,3 +41,4 @@ export const card = css`
     background-color: #f8f9fa;
   }
 `;
+
