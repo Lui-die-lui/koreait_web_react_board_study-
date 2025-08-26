@@ -13,11 +13,11 @@ function OAuth2() {
         css={s.card}
         onClick={() => {
           navigate(
-            `"/auth/oauth2/signup?provider="&providerUserId=${searchParam.get(
-              "provider"
-            )}&providerUserId=${searchParam.get(
-              "providerUserId"
-            )}&email=${searchParam.get("email")}`
+            `/auth/oauth2/signup?provider=${searchParam.get(
+							"provider"
+						)}&providerUserId=${searchParam.get(
+							"providerUserId"
+						)}&email=${searchParam.get("email")}`
           );
         }}
       >
