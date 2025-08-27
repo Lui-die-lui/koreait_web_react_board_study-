@@ -12,7 +12,7 @@ export const addBoardRequest = async (data) => {
   });
 
   try {
-    const response = await instance.post("/board/principal", data);
+    const response = await instance.post("/board/add", data);
     return response;
   } catch (error) {
     return error.response;

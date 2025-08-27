@@ -60,8 +60,8 @@ function Write() {
     <div css={s.container}>
       <input
         type="text"
-        value={title}
         placeholder="제목을 입력해주세요."
+        value={title}
         onChange={(e) => {
           setTitle(e.target.value);
         }}
@@ -69,8 +69,8 @@ function Write() {
       <textarea
         name=""
         id=""
-        value={content}
         placeholder="내용을 입력해주세요."
+        value={content}
         onChange={(e) => {
           setContent(e.target.value);
         }}
