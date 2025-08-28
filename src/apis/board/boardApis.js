@@ -27,3 +27,22 @@ export const getBoardList = async () => {
     return error.response;
   }
 };
+
+export const getBoardDetail = async (boardId) => {
+  try {
+    const response = await instance.get(`/board/${boardId}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+// 삭제 요청 메서드
+export const removeBoard = async (boardId) => {
+  try {
+    const response = await instance.post(`/board/remove/${boardId}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

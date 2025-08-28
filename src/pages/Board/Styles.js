@@ -12,6 +12,7 @@ export const container = css`
 
 export const listContainer = css`
   width: 100%;
+  min-width: 700px;
   height: 752px;
   /* padding: 20px; */
   box-sizing: border-box;

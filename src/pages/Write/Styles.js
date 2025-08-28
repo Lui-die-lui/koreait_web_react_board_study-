@@ -33,6 +33,7 @@ export const container = css`
     font-weight: 600;
     outline: none;
     resize: none;
+    font-size: 18px;
   }
 `;
 
