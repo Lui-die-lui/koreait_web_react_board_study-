@@ -5,6 +5,8 @@ import Board from "../../pages/Board/Board";
 import AuthRouter from "../AuthRouter/AuthRouter";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 import BoardDetail from "../../pages/BoardDetail/BoardDetail";
+import UpdateBoard from "../../pages/UpdateBoard/UpdateBoard";
+import AccountRouter from "../AccountRouter/AccountRouter";
 
 function MainRouter() {
   return (
@@ -32,6 +34,22 @@ function MainRouter() {
           element={
             <ProtectedRoute>
               <BoardDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/board/update/:boardId"
+          element={
+            <ProtectedRoute>
+              <UpdateBoard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/*"
+          element={
+            <ProtectedRoute>
+              <AccountRouter />
             </ProtectedRoute>
           }
         />

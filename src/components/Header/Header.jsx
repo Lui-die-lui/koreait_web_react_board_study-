@@ -15,9 +15,9 @@ function Header() {
   };
 
   const onClickLogout = () => {
-    localStorage.removeItem("accessToken")
+    localStorage.removeItem("accessToken");
     window.location.href = "/auth/signin";
-  }
+  };
 
   return (
     <div css={s.header}>
@@ -39,7 +39,14 @@ function Header() {
       <div>
         {principalData ? (
           <ul>
-            <li css={s.headerIcon}>
+            <li
+              css={s.headerIcon}
+              onClick={() =>
+                onClickNavHandler(
+                  `/account/profile/${principalData.data.data.username}`
+                )
+              }
+            >
               <IoMdPerson />
             </li>
             <li css={s.headerIcon} onClick={onClickLogout}>
@@ -50,7 +57,6 @@ function Header() {
           <ul>
             <li
               css={s.headerIcon}
-              // 오잉... 회원가입 / 로그인 페이지 안됨 나중에 볼 것
               onClick={() => onClickNavHandler("/auth/signin")}
             >
               <LuLogIn />
