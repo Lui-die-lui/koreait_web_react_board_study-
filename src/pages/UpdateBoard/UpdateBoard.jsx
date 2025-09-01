@@ -4,13 +4,14 @@ import * as s from "./Styles";
 import { getBoardDetail, updateBoard } from "../../apis/board/boardApis";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 function Update() {
   const [boardData, setBoardData] = useState({ title: "", content: "" });
   const { boardId } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const principalData = queryClient.getQueryData(["getPrincipal"]);
+  const { isLoggedIn, principal } = usePrincipalState();
 
   const updateBoardMutation = useMutation({
     mutationKey: "updateBoard",
@@ -54,7 +55,7 @@ function Update() {
       console.log(response.data.data);
       if (response.data.status === "success") {
         setBoardData(response.data.data);
-        if (principalData.data.data.userId !== response.data.data.userId) {
+        if (principal.userId !== response.data.data.userId) {
           alert("잘못된 접근입니다.");
           navigate("/board");
         }

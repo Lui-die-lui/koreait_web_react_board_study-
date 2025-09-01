@@ -9,7 +9,8 @@ function Write() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const queryClient = useQueryClient();
-  const principalData = queryClient.getQueryData(["getPrincipal"]);
+
+  const { isLoggedIn, principal } = usePrincipalState();
   const navigate = useNavigate();
 
   // 요청함수 형태로 한번 더 만듦 - 성공 / 에러 두가지 분기를 잡아줄 수 있음
@@ -42,7 +43,7 @@ function Write() {
 
     // console.log(principalData.data.data.userId);
 
-    if (principalData === undefined) {
+    if (!isLoggedIn) {
       console.log("로그인이 필요합니다.");
       navigate("/auth/signin");
       return;
@@ -52,7 +53,7 @@ function Write() {
     addBoardMutation.mutate({
       title: title,
       content: content,
-      userId: principalData.data.data.userId,
+      userId: principal.userId,
     });
   };
 
