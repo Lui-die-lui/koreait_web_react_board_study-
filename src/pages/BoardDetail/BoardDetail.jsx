@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./styles";
 import { useEffect, useState } from "react";
 import { getBoardDetail, removeBoard } from "../../apis/board/boardApis";
-import { useQueryClient } from "@tanstack/react-query";
+
 import { usePrincipalState } from "../../store/usePrincipalStore";
 
 function BoardDetail() {
@@ -53,7 +53,7 @@ function BoardDetail() {
         >
           목록
         </button>
-        {usePrincipalState.userId === boardData.userId ? (
+        {principal.userId === boardData.userId ? (
           <div>
             <button
               css={s.btn("#dc3545")}

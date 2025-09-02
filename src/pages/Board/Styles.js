@@ -34,6 +34,11 @@ export const listContainer = css`
     box-sizing: border-box;
     justify-content: space-between;
     color: #333;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
 
     & > div {
       display: flex;
@@ -49,7 +54,7 @@ export const paginateContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   & > ul {
     width: 60%;
     display: flex;
@@ -67,4 +72,4 @@ export const paginateContainer = css`
       color: #333;
     }
   }
-`
+`;

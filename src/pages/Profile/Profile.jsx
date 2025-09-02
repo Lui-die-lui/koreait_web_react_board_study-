@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./Styles";
+import * as s from "./styles";
 import profileImg from "../../assets/tNWE6ahM8L07uaj81q4HjFD6qrY.png";
 import MyBoard from "../../components/MyBoard/MyBoard";
+import ChangePassword from "../../components/ChangePassword/ChangePassword";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import ChangePassword from "../../components/changePassword/changePassword";
 import { useEffect, useState } from "react";
 import { usePrincipalState } from "../../store/usePrincipalStore";
+import { sendMailRequest } from "../../apis/account/accountApis";
 
 function Profile() {
-  const [tab, setTab] = useState("myBoard");
+  const [tab, setTab] = useState("myboard");
   const [tabChild, setTabChild] = useState(1);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -20,8 +21,25 @@ function Profile() {
     navigate(`${pathname}?tab=${path}`);
   };
 
+  const onClickVerifyHandler = () => {
+    sendMailRequest({
+      email: principal.email,
+    }).then((response) => {
+      if (response.data.status === "success") {
+        alert(response.data.message);
+      } else if (response.data.status === "failed") {
+        alert(response.data.message);
+      }
+    });
+  };
+
   useEffect(() => {
     setTab(searchParams.get("tab"));
+    setTabChild(
+      searchParams.get("tab") === "myboard" || searchParams.get("tab") === null
+        ? 1
+        : 2
+    );
   }, [pathname, searchParams]);
 
   return (
@@ -30,18 +48,17 @@ function Profile() {
         <div css={s.profileHeader}>
           <div css={s.profileImgBox}>
             <div>
-              <img src={profileImg} alt="" />
+              <img src={profileImg} alt="profileImage" />
             </div>
           </div>
           <div css={s.profileInfoBox}>
             <h3>{principal?.username}</h3>
             <div>
               <p>{principal?.email}</p>
-              {/* 인증한 유저 인증하기 버튼 없애줌 */}
               {principal?.authorities[0].authority === "ROLE_TEMPORARY" ? (
-                <button>인증하기</button>
+                <button onClick={onClickVerifyHandler}>인증하기</button>
               ) : (
-                ""
+                <></>
               )}
             </div>
           </div>
@@ -57,7 +74,7 @@ function Profile() {
           </div>
           <div css={s.profileMain}>
             {tab === "myboard" || tab === null ? (
-              <MyBoard />
+              <MyBoard userId={principal?.userId} />
             ) : (
               <ChangePassword />
             )}

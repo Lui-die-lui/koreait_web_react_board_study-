@@ -4,13 +4,13 @@ import * as s from "./Styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { addBoardRequest } from "../../apis/board/boardApis";
+import { usePrincipalState } from "../../store/usePrincipalStore";
 
 function Write() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const queryClient = useQueryClient();
-
   const { isLoggedIn, principal } = usePrincipalState();
+
   const navigate = useNavigate();
 
   // 요청함수 형태로 한번 더 만듦 - 성공 / 에러 두가지 분기를 잡아줄 수 있음
