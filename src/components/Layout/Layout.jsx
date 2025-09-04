@@ -19,7 +19,7 @@ function Layout({ children }) {
   });
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
     if (data?.data.status === "success") {
       login(data?.data.data);
     }

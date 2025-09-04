@@ -19,7 +19,7 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(isLoggedIn, principal);
+    // console.log(isLoggedIn, principal);
   }, [isLoggedIn, principal]);
 
   return (

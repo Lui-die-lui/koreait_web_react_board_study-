@@ -4,14 +4,15 @@
   useState,
 } from "react";
 import * as s from "./styles";
-import { ref, uploadBytesResumable } from "@firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 
 // 이거 이상하다 뜸
-import { storage } from "@firebase/storage/firebaseConfig";
+import { storage } from "../../apis/config/firebaseConfig";
 import { v4 as uuid } from "uuid";
+import { changeProfileImg } from "../../apis/account/accountApis";
 
-function ChangeProfileImg({ oldProfileImg }) {
-  const [profileImg, setProfileImg] = useState("");
+function ChangeProfileImg({ oldProfileImg, userId }) {
+  const [profileImg, setProfileImg] = useState(null); // 빈문자열 ""이면 콘솔에 오류 뜸
   const [newProfileImg, setNewProfileImg] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -53,7 +54,7 @@ function ChangeProfileImg({ oldProfileImg }) {
       `1225935/${uuid()}_${newProfileImg.name.split(".").pop}`
     );
 
-    // 진행상황을 나눠서 보여줌
+    // 진행상황을 bite 단위로 나눠서 보여줌
     const uploadTask = uploadBytesResumable(imageRef, newProfileImg);
 
     // 업로드 상태 변화를 감지하는 이벤트 리스너를 등록
@@ -66,10 +67,40 @@ function ChangeProfileImg({ oldProfileImg }) {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
         setProgress(progressPercent);
+      },
+      // 에러 핸들러
+      (error) => {
+        console.log(error);
+        alert("업로드 중 에러가 발생했습니다.");
+        setIsUploading(false);
+      },
+      // 완료 핸들러
+      async () => {
+        try {
+          const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+          changeProfileImg({
+            userId: userId,
+            profileImg: downloadUrl,
+          }).then((response) => {
+            if (response.data.status === "success") {
+              alert(response.data.message);
+              window.location.reload();
+            } else if (response.data.status === "failed") {
+              alert(response.data.message);
+            }
+          });
+          console.log("url:", downloadUrl);
+          setIsUploading(false);
+        } catch (error) {
+          console.log(error);
+          alert("이미지 URL을 가져오는 중에 에러가 발생했습니다.");
+        } finally {
+          setIsUploading(false);
+          setProgress(0);
+        }
       }
     );
-
-    // ============================에러 핸들러, 완료 핸들러===============================
   };
 
   useEffect(() => {
@@ -79,7 +110,7 @@ function ChangeProfileImg({ oldProfileImg }) {
   return (
     <div css={s.container}>
       <div css={s.profileImgBox}>
-        <img src={profileImg} alt="" onClick={onClickProfileImgHandler} />
+        <img src={profileImg} alt="profileimg" onClick={onClickProfileImgHandler} />
         {/* img 종류만 받음 */}
         <input
           type="file"
@@ -90,7 +121,9 @@ function ChangeProfileImg({ oldProfileImg }) {
       </div>
 
       <div css={s.buttonBox}>
-        <button onClick={onClickChangeBtnHandler}>변경하기</button>
+        <button onClick={onClickChangeBtnHandler}>
+          {isUploading ? `${progress}` : `변경하기`}
+        </button>
       </div>
     </div>
   );
